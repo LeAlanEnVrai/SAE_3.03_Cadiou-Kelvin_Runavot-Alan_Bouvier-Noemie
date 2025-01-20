@@ -160,6 +160,16 @@
                 <h2>Quantité de pesticides utilisés par hectare par an</h2>
             </div>
             <div id="chartdiv"></div>
+            
+            <div class="menu-dropdown">
+                <button id="menu-toggle" class="menu-toggle">Afficher les années</button>
+                <div class="annee">
+                    <h1>Année</h1>
+                    <nav>
+                        <ul id="year-menu"></ul>
+                    </nav>
+                </div>
+            </div>
             <div class="texte">
 
                 L'ère des pesticides de synthèse débute vraiment dans les années 1930, profitant du développement de la
@@ -204,12 +214,6 @@
                 aux citoyens de faire des choix informés et pour encourager des pratiques agricoles plus durables.
             </div>
         </div>
-        <div class="annee">
-            <h1>Année</h1>
-            <nav>
-                <ul id="year-menu"></ul>
-            </nav>
-        </div>
     </div>
 </body>
 <script>
@@ -227,14 +231,25 @@
 
     populateYearMenu();
 
-
     document.addEventListener("DOMContentLoaded", function () {
         const menuToggle = document.getElementById("menu-toggle");
-        const anneeDiv = document.querySelector(".annee");
+        const anneeDiv = document.querySelector(".menu-dropdown .annee");
 
+        // Basculer la visibilité du menu
         menuToggle.addEventListener("click", function () {
             anneeDiv.classList.toggle("open");
         });
+
+        // Remplir automatiquement le menu des années
+        const yearMenu = document.getElementById('year-menu');
+        for (let year = 1990; year <= 2021; year++) {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = "#";
+            a.textContent = year;
+            li.appendChild(a);
+            yearMenu.appendChild(li);
+        }
     });
 
 
