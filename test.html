@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>test</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js
     "></script>
@@ -139,7 +139,7 @@
     </script>
 
     <!-- HTML -->
-    <header>
+    <header> 
         <button id="menu-toggle" aria-label="Toggle menu">&#9776;</button>
     </header>
     <div class="container">
@@ -225,20 +225,8 @@
         }
     }
 
+    // Remplir le menu au chargement de la page
     populateYearMenu();
-
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const menuToggle = document.getElementById("menu-toggle");
-        const anneeDiv = document.querySelector(".annee");
-
-        menuToggle.addEventListener("click", function () {
-            anneeDiv.classList.toggle("open");
-        });
-    });
-
-
 </script>
-
 
 </html>

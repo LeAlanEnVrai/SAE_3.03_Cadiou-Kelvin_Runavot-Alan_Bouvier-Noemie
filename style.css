@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+body {
+    margin: 0;
+    font-family: "Inter", serif;
+    font-optical-sizing: auto;
+    font-style: normal
+}
+
+header {
+    background-color: #6DB0B4;
+    height: 68px;
+}
+
+.container {
+    display: flex;
+}
+
+.left-content {
+    margin-right: 320px;
+    /* Donne de l'espace pour le menu des années */
+    padding: 50px;
+}
+
+#chartdiv{
+    margin-bottom: 20px;
+}
+
+/* Styles du bouton burger */
+#menu-toggle {
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+}
+
+#menu-toggle:focus {
+    outline: none;
+}
+
+/* Masquer la div annee par défaut sur tablettes/téléphones */
+/* Réinitialiser le comportement par défaut */
+.annee {
+    display: block;
+    position: fixed;
+    top: 68px;
+    right: 0;
+    width: 300px;
+    height: calc(100% - 68px);
+    background-color: #026C94;
+    color: white;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    overflow-y: auto;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Afficher automatiquement le menu sur les grands écrans */
+@media screen and (min-width: 1024px) {
+    .annee {
+        transform: translateX(0); /* Toujours visible */
+        position: relative;
+        height: auto;
+        width: 300px;
+        box-shadow: none;
+    }
+
+    #menu-toggle {
+        display: none; /* Cacher le bouton burger */
+    }
+
+    .container {
+        display: flex;
+    }
+
+    .left-content {
+        margin-right: 320px; /* Prévoir l'espace pour le menu */
+    }
+}
+
+/* Masquer le menu burger pour les petits écrans */
+@media screen and (max-width: 1024px) {
+    .left-content {
+        margin-right: 0; /* Pas d'espace réservé pour le menu */
+        width: 100%; /* Prend toute la largeur */
+    }
+
+    .annee {
+        width: 80%;
+        max-width: 300px;
+    }
+
+    .annee.open {
+        transform: translateX(0); /* Affiche le menu lorsqu'il est activé */
+    }
+}
+
+
+.annee h1 {
+    font-size: 1.2em;
+    text-align: center;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.annee nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.annee nav ul li {
+    margin: 5px 0;
+}
+
+.annee nav ul li a {
+    color: #026C94;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.annee nav ul li a:hover {
+    background-color: #d8eafd;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
