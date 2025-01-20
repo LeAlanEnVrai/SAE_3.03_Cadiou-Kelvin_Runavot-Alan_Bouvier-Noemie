@@ -4,7 +4,8 @@ body {
     margin: 0;
     font-family: "Inter", serif;
     font-optical-sizing: auto;
-    font-style: normal
+    font-style: normal;
+    font-size: 24px;
 }
 
 header {
@@ -17,8 +18,6 @@ header {
 }
 
 .left-content {
-    margin-right: 320px;
-    /* Donne de l'espace pour le menu des années */
     padding: 50px;
 }
 
@@ -26,69 +25,55 @@ header {
     margin-bottom: 20px;
 }
 
-/* Style du bouton déroulant */
-.menu-toggle {
-    background-color: #026C94;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 100%;
-    text-align: left;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-}
-
-.menu-toggle:hover {
-    background-color: #024d6d;
-}
-
-/* Masquer le menu déroulant par défaut */
-.menu-dropdown .annee {
-    display: none;
+/* Style général pour .annee */
+.annee {
+    margin: 20px auto;
     padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-top: 10px;
+    max-width: 400px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Afficher le menu déroulant lorsqu'il est activé */
-.menu-dropdown .annee.open {
+/* Style pour le label */
+.annee label {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
     display: block;
+    color: #333;
 }
 
-/* Style du menu */
-.annee h1 {
-    font-size: 1.2em;
-    margin-bottom: 15px;
-}
-
-.annee nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.annee nav ul li {
-    margin: 5px 0;
-}
-
-.annee nav ul li a {
-    color: #026C94;
-    text-decoration: none;
-    font-weight: bold;
-    display: block;
+/* Style pour le select */
+.annee select {
+    width: 100%;
     padding: 10px;
+    font-size: 16px;
+    margin-top: 8px;
     border-radius: 4px;
-    background-color: white;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, box-shadow 0.3s;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    transition: border 0.3s ease;
 }
 
-.annee nav ul li a:hover {
-    background-color: #d8eafd;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+/* Effet de focus sur le select */
+.annee select:focus {
+    outline: none;
+    border-color: #026C94;
 }
+
+/* Style pour le texte de résultat */
+#result {
+    font-size: 16px;
+    margin-top: 15px;
+    color: #333;
+    font-weight: 400;
+}
+
+/* Ajout de l'hover effect sur le select */
+.annee select:hover {
+    border-color: #026C94;
+}
+
 

@@ -139,9 +139,7 @@
     </script>
 
     <!-- HTML -->
-    <header>
-        <button id="menu-toggle" aria-label="Toggle menu">&#9776;</button>
-    </header>
+    <header>    </header>
     <div class="container">
         <div class="left-content">
             <div class="texte">
@@ -160,97 +158,92 @@
                 <h2>Quantité de pesticides utilisés par hectare par an</h2>
             </div>
             <div id="chartdiv"></div>
-            
-            <div class="menu-dropdown">
-                <button id="menu-toggle" class="menu-toggle">Afficher les années</button>
-                <div class="annee">
-                    <h1>Année</h1>
-                    <nav>
-                        <ul id="year-menu"></ul>
-                    </nav>
-                </div>
+
+            <div class="annee">
+                <label for="year-select">Choisissez une année :</label>
+                <select id="year-select" onchange="displayYear()">
+                    <option value="">Sélectionnez une année</option>
+                </select>
+                <p id="result"></p>
             </div>
-            <div class="texte">
 
-                L'ère des pesticides de synthèse débute vraiment dans les années 1930, profitant du développement de la
-                chimie organique de synthèse et de la recherche sur les armes chimiques durant la Première Guerre
-                mondiale.
+            L'ère des pesticides de synthèse débute vraiment dans les années 1930, profitant du développement de la
+            chimie organique de synthèse et de la recherche sur les armes chimiques durant la Première Guerre
+            mondiale.
 
-                <p>Les pesticides sont aujourd'hui massivement utilisés dans l'agriculture, mais également dans les
-                    espaces
-                    verts urbains, les forêts ou encore les jardins domestiques. Ils jouent un rôle clé dans
-                    l'amélioration
-                    des rendements agricoles et la sécurité alimentaire mondiale en réduisant les pertes dues aux
-                    ravageurs.
-                    Cependant, leur usage n'est pas sans conséquences.</p>
+            <p>Les pesticides sont aujourd'hui massivement utilisés dans l'agriculture, mais également dans les
+                espaces
+                verts urbains, les forêts ou encore les jardins domestiques. Ils jouent un rôle clé dans
+                l'amélioration
+                des rendements agricoles et la sécurité alimentaire mondiale en réduisant les pertes dues aux
+                ravageurs.
+                Cependant, leur usage n'est pas sans conséquences.</p>
 
-                <h2>Impacts sur l'environnement</h2>
+            <h2>Impacts sur l'environnement</h2>
 
-                Les pesticides peuvent contaminer les sols, l'eau, et l'air, provoquant des déséquilibres dans les
-                écosystèmes. Par exemple, les résidus chimiques peuvent s'accumuler dans les nappes phréatiques ou
-                perturber la biodiversité en affectant les espèces non ciblées, comme les abeilles ou les oiseaux.
+            Les pesticides peuvent contaminer les sols, l'eau, et l'air, provoquant des déséquilibres dans les
+            écosystèmes. Par exemple, les résidus chimiques peuvent s'accumuler dans les nappes phréatiques ou
+            perturber la biodiversité en affectant les espèces non ciblées, comme les abeilles ou les oiseaux.
 
-                <h2>Conséquences sur la santé</h2>
+            <h2>Conséquences sur la santé</h2>
 
-                L'exposition humaine aux pesticides, qu'elle soit directe (chez les agriculteurs) ou indirecte (via les
-                aliments ou l'environnement), est associée à des risques pour la santé. Certains pesticides sont liés à
-                des effets neurotoxiques, des troubles hormonaux, voire des cancers.
+            L'exposition humaine aux pesticides, qu'elle soit directe (chez les agriculteurs) ou indirecte (via les
+            aliments ou l'environnement), est associée à des risques pour la santé. Certains pesticides sont liés à
+            des effets neurotoxiques, des troubles hormonaux, voire des cancers.
 
-                <h2>Alternatives aux pesticides</h2>
+            <h2>Alternatives aux pesticides</h2>
 
-                Face à ces enjeux, des approches plus respectueuses de l'environnement et de la santé sont en
-                développement. L'agriculture biologique, l'agroécologie ou encore les solutions basées sur les
-                biopesticides et la lutte intégrée (utilisation d'organismes naturels pour contrôler les ravageurs)
-                gagnent du terrain. Ces alternatives visent à réduire notre dépendance aux produits chimiques tout en
-                maintenant une production alimentaire viable.
+            Face à ces enjeux, des approches plus respectueuses de l'environnement et de la santé sont en
+            développement. L'agriculture biologique, l'agroécologie ou encore les solutions basées sur les
+            biopesticides et la lutte intégrée (utilisation d'organismes naturels pour contrôler les ravageurs)
+            gagnent du terrain. Ces alternatives visent à réduire notre dépendance aux produits chimiques tout en
+            maintenant une production alimentaire viable.
 
-                <h2>Un enjeu mondial</h2>
+            <h2>Un enjeu mondial</h2>
 
-                La gestion des pesticides est un défi global nécessitant une coopération internationale. De nombreux
-                pays tentent de réguler leur utilisation en fixant des limites maximales de résidus dans les aliments et
-                en interdisant les substances les plus dangereuses. Toutefois, les disparités restent importantes entre
-                les nations.
-                Ainsi, la transparence sur l'utilisation des pesticides et leurs impacts est essentielle pour permettre
-                aux citoyens de faire des choix informés et pour encourager des pratiques agricoles plus durables.
-            </div>
+            La gestion des pesticides est un défi global nécessitant une coopération internationale. De nombreux
+            pays tentent de réguler leur utilisation en fixant des limites maximales de résidus dans les aliments et
+            en interdisant les substances les plus dangereuses. Toutefois, les disparités restent importantes entre
+            les nations.
+            Ainsi, la transparence sur l'utilisation des pesticides et leurs impacts est essentielle pour permettre
+            aux citoyens de faire des choix informés et pour encourager des pratiques agricoles plus durables.
         </div>
+    </div>
     </div>
 </body>
 <script>
-    function populateYearMenu() {
-        const yearMenu = document.getElementById('year-menu');
-        for (let year = 1990; year <= 2021; year++) {
-            const li = document.createElement('li');
-            const a = document.createElement('a');
-            a.href = "#";
-            a.textContent = year;
-            li.appendChild(a);
-            yearMenu.appendChild(li);
-        }
+    // Fonction pour ajouter les options d'années dans le select
+function populateYearMenu() {
+    const yearSelect = document.getElementById("year-select");
+    
+    // Remplir le menu avec des années de 1990 à 2021
+    for (let year = 1990; year <= 2021; year++) {
+        const option = document.createElement("option");
+        option.value = year;
+        option.textContent = year;
+        yearSelect.appendChild(option);
     }
+}
 
+// Fonction pour afficher l'année sélectionnée
+function displayYear() {
+    const year = document.getElementById("year-select").value;
+    const result = document.getElementById("result");
+    
+    if (year) {
+        result.textContent = "Vous avez sélectionné l'année " + year;
+    } else {
+        result.textContent = "";
+    }
+}
+
+// Appel de la fonction pour ajouter les années au chargement de la page
+window.onload = function() {
     populateYearMenu();
+};
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const menuToggle = document.getElementById("menu-toggle");
-        const anneeDiv = document.querySelector(".menu-dropdown .annee");
 
-        // Basculer la visibilité du menu
-        menuToggle.addEventListener("click", function () {
-            anneeDiv.classList.toggle("open");
-        });
 
-        // Remplir automatiquement le menu des années
-        const yearMenu = document.getElementById('year-menu');
-        for (let year = 1990; year <= 2021; year++) {
-            const li = document.createElement('li');
-            const a = document.createElement('a');
-            a.href = "#";
-            a.textContent = year;
-            li.appendChild(a);
-            yearMenu.appendChild(li);
-        }
-    });
 
 
 </script>
