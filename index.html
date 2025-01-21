@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Test</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js
     "></script>
@@ -25,62 +25,74 @@
         }
     </style>
 
-<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/map.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
-<script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
 
     <!-- Chart code -->
     <script>
         am5.ready(function () {
+            async function loadCSV() {
+                const response = await fetch('pesticide-use-per-hectare-of-cropland.csv');
+                const csvText = await response.text();
+                const rows = csvText.split('\n').map(row => row.split(','));
 
-            // Create root element
-            // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+                const headers = rows[0];
+                const data = rows.slice(1).map(row => {
+                    const obj = {};
+                    row.forEach((val, i) => {
+                        obj[headers[i]] = val;
+                    });
+                    return obj;
+                });
+
+                return data;
+            }
+
+            function getColorForObesity(value) {
+                if (value >= 0 && value < 0.5) {
+                    return am5.color(0xD1E7EC);
+                }
+                if (value >= 0.5 && value < 2.5) {
+                    return am5.color(0x87B6C2);
+                }
+                if (value >= 2.5 && value < 10) {
+                    return am5.color(0x207C9D);
+                }
+                return am5.color(0x404A5E);
+            }
+
             var root = am5.Root.new("chartdiv");
+            root.setThemes([am5themes_Animated.new(root)]);
 
 
-            // Set themes
-            // https://www.amcharts.com/docs/v5/concepts/themes/
-            root.setThemes([
-                am5themes_Animated.new(root)
-            ]);
 
-
-            // Create the map chart
-            // https://www.amcharts.com/docs/v5/charts/map-chart/
             var chart = root.container.children.push(am5map.MapChart.new(root, {
                 panX: "rotateX",
                 panY: "rotateY",
-                projection: am5map.geoOrthographic(),
-                paddingBottom: 20,
-                paddingTop: 20,
-                paddingLeft: 20,
-                paddingRight: 20
+                projection: am5map.geoOrthographic()
             }));
 
-
-
-            // Create main polygon series for countries
-            // https://www.amcharts.com/docs/v5/charts/map-chart/map-polygon-series/
             var polygonSeries = chart.series.push(am5map.MapPolygonSeries.new(root, {
                 geoJSON: am5geodata_worldLow
             }));
 
             polygonSeries.mapPolygons.template.setAll({
-                tooltipText: "{name}",
+                fill: am5.color(0xD3D3D3),
+                fillOpacity: 1,
+                strokeWidth: 1,
+                stroke: am5.color(0xffffff),
+                strokeOpacity: 1,
+                tooltipText: "{name}: {value}%",
                 toggleKey: "active",
                 interactive: true
             });
 
-            polygonSeries.mapPolygons.template.states.create("hover", {
-                fill: root.interfaceColors.get("primaryButtonHover")
-            });
-
-            polygonSeries.mapPolygons.template.states.create("active", {
-                fill: root.interfaceColors.get("primaryButtonHover")
-            });
-
+            var backgroundSeries = chart.series.unshift(
+                am5map.MapPolygonSeries.new(root, {})
+            );
 
             // Create series for background fill
             // https://www.amcharts.com/docs/v5/charts/map-chart/map-polygon-series/#Background_polygon
@@ -102,44 +114,63 @@
 
             graticuleSeries.mapLines.template.set("strokeOpacity", 0.1)
 
-            // Set up events
-            var previousPolygon;
-
-            polygonSeries.mapPolygons.template.on("active", function (active, target) {
-                if (previousPolygon && previousPolygon != target) {
-                    previousPolygon.set("active", false);
-                }
-                if (target.get("active")) {
-                    selectCountry(target.dataItem.get("id"));
-                }
-                previousPolygon = target;
-            });
-
-            function selectCountry(id) {
-                var dataItem = polygonSeries.getDataItemById(id);
-                var target = dataItem.get("mapPolygon");
-                if (target) {
-                    var centroid = target.geoCentroid();
-                    if (centroid) {
-                        chart.animate({ key: "rotationX", to: -centroid.longitude, duration: 1500, easing: am5.ease.inOut(am5.ease.cubic) });
-                        chart.animate({ key: "rotationY", to: -centroid.latitude, duration: 1500, easing: am5.ease.inOut(am5.ease.cubic) });
+            function updateMap(year, data) {
+                console.log(data)
+                const pesticideData = {};
+                data.forEach(row => {
+                    const country = row["Entity"];
+                    const rowYear = parseInt(row["Year"], 10);
+                    const value = parseFloat(row['Pesticides (total) | 00001357 || Use per area of cropland | 005159 || Kilograms per hectare']);
+                    console.log(value)
+                    if (rowYear === year) {
+                        pesticideData[country] = value;
                     }
-                }
+                });
+
+                polygonSeries.mapPolygons.template.adapters.add("tooltipText", (text, target) => {
+                    const countryName = target.dataItem.dataContext.name;
+                    const value = pesticideData[countryName];
+                    if (value === undefined) {
+                        return `Absence de données pour ${countryName}`;
+                    } else {
+                        return `${countryName}: ${value}kg/ha`;
+                    }
+                });
+
+                polygonSeries.mapPolygons.template.adapters.add("fill", (fill, target) => {
+                    const countryName = target.dataItem.dataContext.name;
+                    const obesityValue = pesticideData[countryName];
+                    if (obesityValue !== undefined) {
+                        return getColorForObesity(obesityValue);
+                    }
+                    return fill;
+                });
+
+                polygonSeries.data.setAll(Object.keys(pesticideData).map(country => {
+                    return {
+                        id: polygonSeries.getDataItemById(country)?.get("id"),
+                        name: country,
+                        value: pesticideData[country]
+                    };
+                }));
             }
 
-            //Uncomment this to pre-center the globe on a country when it loads
-            polygonSeries.events.on("datavalidated", function () {
-                selectCountry("FR");
+            loadCSV().then(data => {
+                const range = document.getElementById("year-range");
+                const display = document.getElementById("year-display");
+
+                range.addEventListener("input", function () {
+                    display.textContent = range.value;
+                    updateMap(parseInt(range.value, 10), data);
+                });
+
+                updateMap(parseInt(range.value, 10), data);
             });
 
-
-            // Make stuff animate on load
             chart.appear(1000, 100);
-
-        }); // end am5.ready()
+        });
     </script>
 
-    <!-- HTML -->
     <header class="site-header">
         <div class="header-container">
             <div class="logo">
@@ -147,13 +178,12 @@
             </div>
         </div>
     </header>
-    
     <div class="container">
         <div class="left-content">
             <div class="texte">
                 <h2>Les pesticides</h2>
                 <p>Les pesticides sont utilisés pour protéger les plantes contre les mauvaises herbes, les
-                    champignons ou les insectes. Où sont-ils utilisés ? Quel est leur impact ?
+                    champignons ou les insectes. Où sont-ils utilisés? Quel est leur impact?
 
                     Le terme pesticide désigne les substances actives ou les préparations utilisées pour la prévention,
                     le
@@ -166,20 +196,37 @@
                 <h2>Quantité de pesticides utilisés par hectare par an</h2>
             </div>
             <div id="chartdiv"></div>
+            <div class="legend">
+                <div class="legend-item">
+                  <div class="color-box color-1"></div>
+                  <span>0 à 0.5</span>
+                </div>
+                <div class="legend-item">
+                  <div class="color-box color-2"></div>
+                  <span>0.5 à 2.5</span>
+                </div>
+                <div class="legend-item">
+                  <div class="color-box color-3"></div>
+                  <span>2.5 à 10</span>
+                </div>
+                <div class="legend-item">
+                  <div class="color-box color-4"></div>
+                  <span>10 et plus</span>
+                </div>
+              </div>
 
-            <div class="annee">
-                <label for="year-select">Choisissez une année :</label>
-                <select id="year-select" onchange="displayYear()">
-                    <option value="">Sélectionnez une année</option>
-                </select>
-                <p id="result"></p>
-            </div>
+            
 
-            L'ère des pesticides de synthèse débute vraiment dans les années 1930, profitant du développement de la
-            chimie organique de synthèse et de la recherche sur les armes chimiques durant la Première Guerre
-            mondiale.
+            <label for="year-range">Choisissez une année (1990 à 2021) :</label>
+            <span id="year-display">1990</span>
+            <input type="range" id="year-range" min="1990" max="2021" step="1" value="1990" />
 
-            <p>Les pesticides sont aujourd'hui massivement utilisés dans l'agriculture, mais également dans les
+
+
+            <p>L'ère des pesticides de synthèse débute vraiment dans les années 1930, profitant du développement de la
+                chimie organique de synthèse et de la recherche sur les armes chimiques durant la Première Guerre
+                mondiale.
+                Les pesticides sont aujourd'hui massivement utilisés dans l'agriculture, mais également dans les
                 espaces
                 verts urbains, les forêts ou encore les jardins domestiques. Ils jouent un rôle clé dans
                 l'amélioration
@@ -217,8 +264,6 @@
             aux citoyens de faire des choix informés et pour encourager des pratiques agricoles plus durables.
         </div>
     </div>
-    </div>
-
     <footer>
         <div class="footer-container">
             <div class="footer-logo">
@@ -228,42 +273,19 @@
                 <a href="#comment-ca-marche">Comment ça marche</a>
                 <a href="#informations-legales">Informations Légales</a>
                 <a href="#contact">Contact</a>
-                <a href="https://ourworldindata.org/pesticides" target="_blank" rel="noopener noreferrer">Nos sources</a>
+                <a href="https://ourworldindata.org/pesticides" target="_blank" rel="noopener noreferrer">Nos
+                    sources</a>
             </nav>
         </div>
     </footer>
-
 </body>
 <script>
-    // Fonction pour ajouter les options d'années dans le select
-function populateYearMenu() {
-    const yearSelect = document.getElementById("year-select");
-    
-    // Remplir le menu avec des années de 1990 à 2021
-    for (let year = 1990; year <= 2021; year++) {
-        const option = document.createElement("option");
-        option.value = year;
-        option.textContent = year;
-        yearSelect.appendChild(option);
-    }
-}
+    const rangeInput = document.getElementById('year-range');
+    const yearDisplay = document.getElementById('year-display');
 
-// Fonction pour afficher l'année sélectionnée
-function displayYear() {
-    const year = document.getElementById("year-select").value;
-    const result = document.getElementById("result");
-    
-    if (year) {
-        result.textContent = "Vous avez sélectionné l'année " + year;
-    } else {
-        result.textContent = "";
-    }
-}
-
-// Appel de la fonction pour ajouter les années au chargement de la page
-window.onload = function() {
-    populateYearMenu();
-};
+    rangeInput.addEventListener('input', () => {
+      yearDisplay.textContent = rangeInput.value;
+    });
 
 
 

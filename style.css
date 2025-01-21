@@ -10,35 +10,35 @@ body {
 
 /* Header global */
 header.site-header {
-    background-color: #6DB0B4; 
-    height: 68px; 
+    background-color: #6DB0B4;
+    height: 68px;
     display: flex;
     align-items: center;
-    justify-content: flex-start; 
+    justify-content: flex-start;
 }
 
 /* Conteneur du header */
 .header-container {
     display: flex;
     width: 100%;
-    height: 100%; 
+    height: 100%;
     align-items: center;
 }
 
 /* Logo */
 .logo {
-    height: 100%; 
-    aspect-ratio: 1 / 1; 
+    height: 100%;
+    aspect-ratio: 1 / 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 0; 
+    margin-left: 0;
 }
 
 .logo img {
-    max-width: 100%; 
-    max-height: 100%; 
-    object-fit: contain; 
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
 }
 
 
@@ -50,7 +50,7 @@ header.site-header {
     padding: 50px;
 }
 
-#chartdiv{
+#chartdiv {
     margin-bottom: 20px;
 }
 
@@ -106,7 +106,8 @@ header.site-header {
 }
 
 footer {
-    background-color: #82AAB5; /* Couleur de fond */
+    background-color: #82AAB5;
+    /* Couleur de fond */
     padding: 20px 0;
     color: #fff;
     text-align: center;
@@ -120,7 +121,8 @@ footer {
     margin: 0 auto;
     padding: 0 20px;
     position: relative;
-    flex-wrap: wrap; /* Pour les petites tailles d'écran */
+    flex-wrap: wrap;
+    /* Pour les petites tailles d'écran */
 }
 
 .footer-logo {
@@ -128,14 +130,15 @@ footer {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: 10px; /* Espacement sur mobile */
+    margin-bottom: 10px;
+    /* Espacement sur mobile */
 }
 
 .logo-image {
-    width: 100px; 
+    width: 100px;
     height: auto;
-    border-radius: 50%; 
-    object-fit: cover; 
+    border-radius: 50%;
+    object-fit: cover;
     margin-left: -70px;
 }
 
@@ -152,21 +155,22 @@ footer {
     font-size: 16px;
     font-weight: 500;
     transition: color 0.3s ease;
-    gap: 20px; 
-    border-top: 2px solid #004466; 
-    padding-top: 10px; 
-    margin-top: 20px; 
+    gap: 20px;
+    border-top: 2px solid #004466;
+    padding-top: 10px;
+    margin-top: 20px;
 }
 
 .footer-nav a:hover {
-    color: #026C94; 
+    color: #026C94;
 }
 
 /* Media Query pour tablette et mobile */
 @media screen and (max-width: 768px) {
     .footer-container {
         flex-direction: row;
-        justify-content: space-between; /* Aligner logo et nav sur la même ligne */
+        justify-content: space-between;
+        /* Aligner logo et nav sur la même ligne */
     }
 
     .footer-logo {
@@ -174,16 +178,23 @@ footer {
     }
 
     .footer-nav {
-        flex-direction: row; /* Assurer l'alignement horizontal des liens */
-        justify-content: flex-start; /* Lien aligné à gauche */
-        flex-wrap: nowrap; /* Pas de rupture de ligne pour les liens */
+        flex-direction: row;
+        /* Assurer l'alignement horizontal des liens */
+        justify-content: flex-start;
+        /* Lien aligné à gauche */
+        flex-wrap: nowrap;
+        /* Pas de rupture de ligne pour les liens */
     }
 
     .footer-nav a {
-        margin-top: 0; /* Enlever l'espacement vertical entre les liens */
-        padding-top: 0; /* Réduire le padding pour mieux aligner les éléments */
-        border-top: none; /* Retirer la bordure sur mobile */
-        margin-left: 10px; /* Espacement entre les liens */
+        margin-top: 0;
+        /* Enlever l'espacement vertical entre les liens */
+        padding-top: 0;
+        /* Réduire le padding pour mieux aligner les éléments */
+        border-top: none;
+        /* Retirer la bordure sur mobile */
+        margin-left: 10px;
+        /* Espacement entre les liens */
     }
 }
 
@@ -192,3 +203,117 @@ footer {
         font-size: 14px;
     }
 }
+
+label {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+/* Style du texte d'affichage de l'année */
+#year-display {
+    font-size: 18px;
+    font-weight: bold;
+    color: #007BFF;
+    margin-left: 10px;
+}
+
+/* Style de l'input range */
+input[type="range"] {
+    -webkit-appearance: none;
+    /* Supprime le style par défaut pour les navigateurs basés sur Webkit */
+    appearance: none;
+    width: 300px;
+    height: 6px;
+    background: #ddd;
+    border-radius: 3px;
+    outline: none;
+    transition: background 0.3s ease;
+}
+
+input[type="range"]:hover {
+    background: #ccc;
+}
+
+/* Style du curseur (Webkit - Chrome, Safari, Edge) */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    /* Supprime le style par défaut */
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #007BFF;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Style du curseur au survol (Webkit) */
+input[type="range"]::-webkit-slider-thumb:hover {
+    background: #0056b3;
+}
+
+/* Style du curseur pour Firefox */
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #007BFF;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Style de la barre de progression pour Firefox */
+input[type="range"]::-moz-range-track {
+    background: #ddd;
+    height: 6px;
+    border-radius: 3px;
+}
+
+/* Style du curseur au survol (Firefox) */
+input[type="range"]::-moz-range-thumb:hover {
+    background: #0056b3;
+}
+
+.legend {
+    display: flex;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    margin: 20px;
+  }
+
+  /* Élément de chaque ligne */
+  .legend-item {
+    display: flex;
+    align-items: center;
+    margin-right: 20px; /* Espace entre les items */
+  }
+
+  /* Carré de couleur */
+  .color-box {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    margin-right: 8px;
+    border: 1px solid #333;
+  }
+
+  /* Couleurs spécifiques */
+  .color-1 {
+    background-color: #D1E7EC;
+  }
+
+  .color-2 {
+    background-color: #87B6C2;
+  }
+
+  .color-3 {
+    background-color: #207C9D;
+  }
+
+  .color-4 {
+    background-color: #404A5E;
+  }
