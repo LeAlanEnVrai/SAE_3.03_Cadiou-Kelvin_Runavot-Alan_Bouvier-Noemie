@@ -120,13 +120,15 @@ footer {
     margin: 0 auto;
     padding: 0 20px;
     position: relative;
+    flex-wrap: wrap; /* Pour les petites tailles d'écran */
 }
 
 .footer-logo {
     flex: 1;
     display: flex;
-    justify-content: flex-start; 
+    justify-content: flex-start;
     align-items: center;
+    margin-bottom: 10px; /* Espacement sur mobile */
 }
 
 .logo-image {
@@ -134,9 +136,8 @@ footer {
     height: auto;
     border-radius: 50%; 
     object-fit: cover; 
-    margin-left: -70px; 
+    margin-left: -70px;
 }
-
 
 .footer-nav {
     flex: 3;
@@ -161,4 +162,33 @@ footer {
     color: #026C94; 
 }
 
+/* Media Query pour tablette et mobile */
+@media screen and (max-width: 768px) {
+    .footer-container {
+        flex-direction: row;
+        justify-content: space-between; /* Aligner logo et nav sur la même ligne */
+    }
 
+    .footer-logo {
+        margin-bottom: 0;
+    }
+
+    .footer-nav {
+        flex-direction: row; /* Assurer l'alignement horizontal des liens */
+        justify-content: flex-start; /* Lien aligné à gauche */
+        flex-wrap: nowrap; /* Pas de rupture de ligne pour les liens */
+    }
+
+    .footer-nav a {
+        margin-top: 0; /* Enlever l'espacement vertical entre les liens */
+        padding-top: 0; /* Réduire le padding pour mieux aligner les éléments */
+        border-top: none; /* Retirer la bordure sur mobile */
+        margin-left: 10px; /* Espacement entre les liens */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .footer-nav a {
+        font-size: 14px;
+    }
+}
