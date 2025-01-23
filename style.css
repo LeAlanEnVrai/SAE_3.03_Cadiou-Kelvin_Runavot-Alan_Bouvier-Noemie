@@ -179,22 +179,16 @@ footer {
 
     .footer-nav {
         flex-direction: row;
-        /* Assurer l'alignement horizontal des liens */
         justify-content: flex-start;
-        /* Lien aligné à gauche */
         flex-wrap: nowrap;
-        /* Pas de rupture de ligne pour les liens */
     }
 
     .footer-nav a {
         margin-top: 0;
-        /* Enlever l'espacement vertical entre les liens */
         padding-top: 0;
-        /* Réduire le padding pour mieux aligner les éléments */
         border-top: none;
-        /* Retirer la bordure sur mobile */
         margin-left: 10px;
-        /* Espacement entre les liens */
+        
     }
 }
 
@@ -264,7 +258,7 @@ input[type="range"]:focus {
   .legend-item {
     display: flex;
     align-items: center;
-    margin-right: 20px; /* Espace entre les items */
+    margin-right: 20px; 
   }
 
   /* Carré de couleur */
