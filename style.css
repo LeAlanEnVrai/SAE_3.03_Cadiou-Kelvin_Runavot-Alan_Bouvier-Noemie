@@ -119,13 +119,17 @@ footer {
     }
 
     .footer-nav {
-        flex-direction: column; /* Les liens passent en colonne */
-        align-items: center;
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
     }
 
     .footer-nav a {
-        font-size: 14px; /* Réduit la taille de la police */
-        margin: 5px 0; /* Ajoute de l'espacement vertical */
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+        margin-left: 10px;
+        
     }
 }
 
@@ -200,7 +204,7 @@ input[type="range"]:focus {
   .legend-item {
     display: flex;
     align-items: center;
-    margin-right: 20px; /* Espace entre les items */
+    margin-right: 20px; 
   }
 
   /* Carré de couleur */
@@ -228,3 +232,18 @@ input[type="range"]:focus {
   .color-4 {
     background-color: #404A5E;
   }
+
+  /* Cacher la version mobile par défaut */
+.frise.mobile {
+    display: none;
+}
+
+/* Afficher la version mobile et cacher la version desktop sur les petits écrans */
+@media screen and (max-width: 768px) {
+    .frise.desktop {
+        display: none;
+    }
+    .frise.mobile {
+        display: block;
+    }
+}
