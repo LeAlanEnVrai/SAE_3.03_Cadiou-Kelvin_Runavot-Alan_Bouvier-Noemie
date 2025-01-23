@@ -204,78 +204,53 @@ footer {
     }
 }
 
-label {
+.annee {
     font-family: Arial, sans-serif;
-    font-size: 16px;
-    color: #333;
-    display: inline-block;
-    margin-bottom: 8px;
+    margin: 20px;
+    text-align: center;
 }
 
-/* Style du texte d'affichage de l'année */
-#year-display {
-    font-size: 18px;
+.annee label {
+    display: block;
+    font-size: 16px;
     font-weight: bold;
-    color: #007BFF;
+    margin-bottom: 10px;
+}
+
+#year-display {
+    font-size: 20px;
+    font-weight: bold;
+    color: #0078D7; /* Bleu moderne */
     margin-left: 10px;
 }
 
-/* Style de l'input range */
 input[type="range"] {
-    -webkit-appearance: none;
-    /* Supprime le style par défaut pour les navigateurs basés sur Webkit */
-    appearance: none;
-    width: 300px;
-    height: 6px;
-    background: #ddd;
-    border-radius: 3px;
+    width: 100%;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 5px;
     outline: none;
-    transition: background 0.3s ease;
+    transition: background 0.3s;
+    margin-top: 10px;
 }
 
-input[type="range"]:hover {
-    background: #ccc;
-}
-
-/* Style du curseur (Webkit - Chrome, Safari, Edge) */
 input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    /* Supprime le style par défaut */
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    background: #007BFF;
+    width: 16px;
+    height: 16px;
+    background: #0078D7;
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s;
 }
 
-/* Style du curseur au survol (Webkit) */
-input[type="range"]::-webkit-slider-thumb:hover {
-    background: #0056b3;
+input[type="range"]:hover::-webkit-slider-thumb {
+    background: #0056a3; /* Couleur plus sombre au survol */
 }
 
-/* Style du curseur pour Firefox */
-input[type="range"]::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    background: #007BFF;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+input[type="range"]:focus {
+    background: #d0d0d0;
 }
 
-/* Style de la barre de progression pour Firefox */
-input[type="range"]::-moz-range-track {
-    background: #ddd;
-    height: 6px;
-    border-radius: 3px;
-}
-
-/* Style du curseur au survol (Firefox) */
-input[type="range"]::-moz-range-thumb:hover {
-    background: #0056b3;
-}
 
 .legend {
     display: flex;
