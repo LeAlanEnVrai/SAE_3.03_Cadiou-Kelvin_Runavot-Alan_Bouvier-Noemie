@@ -292,3 +292,18 @@ input[type="range"]:focus {
   .color-4 {
     background-color: #404A5E;
   }
+
+  /* Cacher la version mobile par défaut */
+.frise.mobile {
+    display: none;
+}
+
+/* Afficher la version mobile et cacher la version desktop sur les petits écrans */
+@media screen and (max-width: 768px) {
+    .frise.desktop {
+        display: none;
+    }
+    .frise.mobile {
+        display: block;
+    }
+}
