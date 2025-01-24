@@ -119,17 +119,13 @@ footer {
     }
 
     .footer-nav {
-        flex-direction: row;
-        justify-content: flex-start;
-        flex-wrap: nowrap;
+        flex-direction: column; /* Les liens passent en colonne */
+        align-items: center;
     }
 
     .footer-nav a {
-        margin-top: 0;
-        padding-top: 0;
-        border-top: none;
-        margin-left: 10px;
-        
+        font-size: 14px; /* Réduit la taille de la police */
+        margin: 5px 0; /* Ajoute de l'espacement vertical */
     }
 }
 
@@ -142,6 +138,7 @@ footer {
         font-size: 12px; /* Réduction supplémentaire pour les petits écrans */
     }
 }
+
 
 
 
