@@ -41,17 +41,21 @@ header.site-header {
     object-fit: contain;
 }
 
-
 .container {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .left-content {
-    padding: 50px;
+    padding: 20px;
+    flex: 1 1 100%; /* Rend la section flexible et adaptée à l'écran */
+    box-sizing: border-box;
 }
 
 #chartdiv {
     margin-bottom: 20px;
+    width: 100%;
+    height: auto;
 }
 
 footer {
@@ -127,6 +131,14 @@ footer {
         font-size: 14px; /* Réduit la taille de la police */
         margin: 5px 0; /* Ajoute de l'espacement vertical */
     }
+
+    .container {
+        flex-direction: column; /* Passe en colonne sur petit écran */
+    }
+
+    .left-content {
+        padding: 10px; /* Réduit le padding */
+    }
 }
 
 @media screen and (max-width: 480px) {
@@ -137,10 +149,15 @@ footer {
     .footer-nav a {
         font-size: 12px; /* Réduction supplémentaire pour les petits écrans */
     }
+
+    .annee label {
+        font-size: 14px; /* Réduction de la taille de la police */
+    }
+
+    input[type="range"] {
+        height: 6px; /* Réduction de la taille du slider */
+    }
 }
-
-
-
 
 .annee {
     margin: 20px;
@@ -188,54 +205,48 @@ input[type="range"]:focus {
     background: #d0d0d0;
 }
 
-
 .legend {
     display: flex;
     align-items: center;
     font-family: Arial, sans-serif;
     font-size: 14px;
     margin: 20px;
-  }
+}
 
-  /* Élément de chaque ligne */
-  .legend-item {
+.legend-item {
     display: flex;
     align-items: center;
-    margin-right: 20px; 
-  }
+    margin-right: 20px;
+}
 
-  /* Carré de couleur */
-  .color-box {
+.color-box {
     width: 20px;
     height: 20px;
     border-radius: 3px;
     margin-right: 8px;
     border: 1px solid #333;
-  }
+}
 
-  /* Couleurs spécifiques */
-  .color-1 {
+.color-1 {
     background-color: #D1E7EC;
-  }
+}
 
-  .color-2 {
+.color-2 {
     background-color: #87B6C2;
-  }
+}
 
-  .color-3 {
+.color-3 {
     background-color: #207C9D;
-  }
+}
 
-  .color-4 {
+.color-4 {
     background-color: #404A5E;
-  }
+}
 
-  /* Cacher la version mobile par défaut */
 .frise.mobile {
     display: none;
 }
 
-/* Afficher la version mobile et cacher la version desktop sur les petits écrans */
 @media screen and (max-width: 768px) {
     .frise.desktop {
         display: none;
